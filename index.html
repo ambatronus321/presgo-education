@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SainsPedia - Media Pembelajaran IPA SMP</title>
+    <!-- Tailwind CSS untuk Styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Pengaturan Font Global */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fafc;
+        }
+        
+        /* Animasi Transisi Halus */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Menyembunyikan elemen secara default untuk navigasi SPA (Single Page Application) */
+        .page-section {
+            display: none;
+        }
+        
+        .page-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body class="text-slate-800 flex flex-col min-h-screen">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center cursor-pointer" onclick="navigateTo('home')">
+                    <i class="fa-solid fa-flask text-teal-600 text-2xl mr-2"></i>
+                    <span class="font-bold text-xl text-teal-800">SainsPedia</span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <button onclick="navigateTo('home')" class="text-slate-600 hover:text-teal-600 font-medium transition">Beranda</button>
+                    <button onclick="navigateTo('materi')" class="text-slate-600 hover:text-teal-600 font-medium transition">Materi</button>
+                    <button onclick="navigateTo('kuis')" class="text-slate-600 hover:text-teal-600 font-medium transition">Kuis Interaktif</button>
+                </div>
+                <!-- Mobile menu button (Simplified for this demo) -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-slate-600 hover:text-teal-600" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t pb-4 px-4">
+            <button onclick="navigateTo('home')" class="block w-full text-left py-2 text-slate-600 hover:text-teal-600">Beranda</button>
+            <button onclick="navigateTo('materi')" class="block w-full text-left py-2 text-slate-600 hover:text-teal-600">Materi</button>
+            <button onclick="navigateTo('kuis')" class="block w-full text-left py-2 text-slate-600 hover:text-teal-600">Kuis Interaktif</button>
+        </div>
+    </nav>
+
+    <!-- KONTEN UTAMA -->
+    <main class="flex-grow max-w-6xl mx-auto w-full px-4 py-8">
+
+        <!-- 1. HALAMAN BERANDA -->
+        <section id="home" class="page-section active fade-in">
+            <!-- Hero Section -->
+            <div class="bg-gradient-to-r from-teal-500 to-blue-500 rounded-2xl p-8 md:p-12 text-white shadow-xl mb-12 flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-2/3 mb-6 md:mb-0">
+                    <h1 class="text-3xl md:text-5xl font-bold mb-4">Jelajahi Keajaiban Sains!</h1>
+                    <p class="text-lg opacity-90 mb-6">Belajar Ilmu Pengetahuan Alam (IPA) tingkat SMP kini jauh lebih seru, interaktif, dan mudah dipahami. Mulai petualangan belajarmu sekarang!</p>
+                    <button onclick="navigateTo('materi')" class="bg-white text-teal-600 px-6 py-3 rounded-full font-bold shadow-md hover:bg-slate-50 transition transform hover:-translate-y-1">
+                        Mulai Belajar <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                <div class="md:w-1/3 flex justify-center">
+                    <i class="fa-solid fa-microscope text-8xl opacity-80 animate-pulse"></i>
+                </div>
+            </div>
+
+            <!-- Fitur/Materi Utama -->
+            <h2 class="text-2xl font-bold text-slate-800 mb-6 text-center">Topik Populer</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-blue-500 hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer" onclick="openMateri('tatasurya')">
+                    <div class="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-meteor text-blue-500 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Sistem Tata Surya</h3>
+                    <p class="text-slate-500 text-sm mb-4">Pelajari tentang planet, bintang, dan pergerakan benda langit di alam semesta kita.</p>
+                    <span class="text-blue-500 font-medium text-sm">Baca Materi &rarr;</span>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-green-500 hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer" onclick="openMateri('sel')">
+                    <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-leaf text-green-500 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Sel & Organisasi Makhluk Hidup</h3>
+                    <p class="text-slate-500 text-sm mb-4">Pahami struktur terkecil penyusun kehidupan, mulai dari sel hewan hingga tumbuhan.</p>
+                    <span class="text-green-500 font-medium text-sm">Baca Materi &rarr;</span>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white rounded-xl shadow-md p-6 border-t-4 border-orange-500 hover:shadow-lg transition transform hover:-translate-y-1 cursor-pointer" onclick="navigateTo('kuis')">
+                    <div class="bg-orange-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+                        <i class="fa-solid fa-gamepad text-orange-500 text-xl"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Latihan Kuis</h3>
+                    <p class="text-slate-500 text-sm mb-4">Uji pengetahuanmu dengan menjawab soal-soal interaktif berhadiah nilai langsung!</p>
+                    <span class="text-orange-500 font-medium text-sm">Mulai Kuis &rarr;</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. HALAMAN DAFTAR MATERI -->
+        <section id="materi" class="page-section fade-in">
+            <h2 class="text-3xl font-bold text-slate-800 mb-2">Daftar Materi IPA</h2>
+            <p class="text-slate-500 mb-8">Pilih bab yang ingin kamu pelajari hari ini.</p>
+            
+            <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                <div class="p-4 border-b border-slate-100 hover:bg-slate-50 cursor-pointer flex justify-between items-center" onclick="openMateri('tatasurya')">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-earth-americas text-blue-500 text-xl w-8"></i>
+                        <div>
+                            <h4 class="font-semibold text-slate-800">Bab 1: Sistem Tata Surya</h4>
+                            <p class="text-xs text-slate-500">Matahari, Planet, dan Benda Langit</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-400"></i>
+                </div>
+                <div class="p-4 border-b border-slate-100 hover:bg-slate-50 cursor-pointer flex justify-between items-center" onclick="openMateri('sel')">
+                    <div class="flex items-center">
+                        <i class="fa-solid fa-dna text-green-500 text-xl w-8"></i>
+                        <div>
+                            <h4 class="font-semibold text-slate-800">Bab 2: Struktur Sel</h4>
+                            <p class="text-xs text-slate-500">Sel Tumbuhan dan Sel Hewan</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-slate-400"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUB-PAGE: BACA MATERI -->
+        <section id="baca-materi" class="page-section fade-in">
+            <button onclick="navigateTo('materi')" class="text-teal-600 mb-6 flex items-center hover:underline">
+                <i class="fa-solid fa-arrow-left mr-2"></i> Kembali ke Daftar Materi
+            </button>
+            
+            <div class="bg-white rounded-2xl shadow-md p-6 md:p-10">
+                <h1 id="materi-title" class="text-3xl font-bold mb-4 text-slate-800">Judul Materi</h1>
+                <hr class="mb-6">
+                
+                <div id="materi-content" class="prose max-w-none text-slate-600 leading-relaxed">
+                    <!-- Konten materi akan di-inject via JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. HALAMAN KUIS -->
+        <section id="kuis" class="page-section fade-in">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold text-slate-800 mb-2">Kuis Interaktif Sains</h2>
+                <p class="text-slate-500">Uji pemahamanmu tentang materi yang telah dipelajari.</p>
+            </div>
+
+            <!-- Wadah Kuis Utama -->
+            <div id="quiz-container" class="max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <span id="quiz-progress" class="text-sm font-semibold text-teal-600 bg-teal-50 px-3 py-1 rounded-full">Pertanyaan 1 dari 3</span>
+                    <span id="quiz-score-display" class="text-sm font-semibold text-orange-500 hidden">Skor: <span id="current-score">0</span></span>
+                </div>
+                
+                <h3 id="question-text" class="text-xl font-bold text-slate-800 mb-6">Pertanyaan muncul di sini?</h3>
+                
+                <div id="options-container" class="space-y-3">
+                    <!-- Pilihan ganda akan dirender via JS -->
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button id="next-btn" class="hidden bg-teal-500 hover:bg-teal-600 text-white px-6 py-2 rounded-lg font-medium transition" onclick="nextQuestion()">Selanjutnya <i class="fa-solid fa-arrow-right ml-1"></i></button>
+                </div>
+            </div>
+
+            <!-- Wadah Hasil Kuis -->
+            <div id="result-container" class="hidden max-w-2xl mx-auto bg-white rounded-2xl shadow-lg p-8 text-center">
+                <div class="text-5xl mb-4">🏆</div>
+                <h3 class="text-2xl font-bold text-slate-800 mb-2">Kuis Selesai!</h3>
+                <p class="text-slate-500 mb-6">Berikut adalah skor akhir kamu:</p>
+                
+                <div class="text-6xl font-bold text-teal-500 mb-8" id="final-score">100</div>
+                
+                <div class="flex justify-center space-x-4">
+                    <button onclick="startQuiz()" class="bg-teal-100 text-teal-700 px-6 py-2 rounded-lg font-medium hover:bg-teal-200 transition">Ulangi Kuis</button>
+                    <button onclick="navigateTo('home')" class="bg-teal-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-teal-600 transition">Ke Beranda</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-800 text-slate-300 py-6 text-center mt-auto">
+        <p class="text-sm">© 2026 SainsPedia - Media Pembelajaran IPA SMP. Dibuat dengan <i class="fa-solid fa-heart text-red-500"></i>.</p>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        /* =========================================
+           1. LOGIKA NAVIGASI (Single Page Application)
+           ========================================= */
+        function navigateTo(sectionId) {
+            // Sembunyikan menu mobile jika terbuka
+            document.getElementById('mobile-menu').classList.add('hidden');
+            
+            // Sembunyikan semua section
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(sec => sec.classList.remove('active'));
+            
+            // Tampilkan section yang dipilih
+            document.getElementById(sectionId).classList.add('active');
+
+            // Jika masuk halaman kuis, reset kuis
+            if (sectionId === 'kuis') {
+                startQuiz();
+            }
+            
+            // Scroll ke atas
+            window.scrollTo(0, 0);
+        }
+
+        /* =========================================
+           2. LOGIKA KONTEN MATERI
+           ========================================= */
+        const dataMateri = {
+            'tatasurya': {
+                title: "Sistem Tata Surya",
+                content: `
+                    <div class="mb-4">
+                        <img src="https://placehold.co/800x400/1e3a8a/ffffff?text=Tata+Surya" alt="Tata Surya" class="w-full rounded-xl shadow-sm mb-4">
+                        <h3 class="text-xl font-bold mb-2 text-slate-800">Apa itu Tata Surya?</h3>
+                        <p class="mb-4">Tata surya adalah kumpulan benda langit yang terdiri atas sebuah bintang yang disebut <strong>Matahari</strong> dan semua objek yang terikat oleh gaya gravitasinya.</p>
+                        
+                        <h3 class="text-xl font-bold mb-2 text-slate-800 mt-6">Planet-planet dalam Tata Surya</h3>
+                        <p class="mb-2">Terdapat 8 planet utama di tata surya kita, yang dibagi menjadi planet dalam dan planet luar:</p>
+                        <ul class="list-disc pl-6 mb-4 space-y-2">
+                            <li><strong>Merkurius:</strong> Planet terdekat dengan matahari.</li>
+                            <li><strong>Venus:</strong> Planet terpanas.</li>
+                            <li><strong>Bumi:</strong> Satu-satunya planet yang diketahui memiliki kehidupan.</li>
+                            <li><strong>Mars:</strong> Dikenal sebagai planet merah.</li>
+                            <li><strong>Jupiter:</strong> Planet terbesar di tata surya.</li>
+                            <li><strong>Saturnus:</strong> Memiliki cincin yang sangat indah.</li>
+                            <li><strong>Uranus & Neptunus:</strong> Planet es raksasa di ujung tata surya.</li>
+                        </ul>
+                    </div>
+                `
+            },
+            'sel': {
+                title: "Sel dan Organisasi Makhluk Hidup",
+                content: `
+                    <div class="mb-4">
+                        <img src="https://placehold.co/800x400/166534/ffffff?text=Struktur+Sel" alt="Struktur Sel" class="w-full rounded-xl shadow-sm mb-4">
+                        <h3 class="text-xl font-bold mb-2 text-slate-800">Pengertian Sel</h3>
+                        <p class="mb-4">Sel adalah unit struktural dan fungsional terkecil dari makhluk hidup. Semua makhluk hidup, dari bakteri mikroskopis hingga manusia, tersusun dari sel.</p>
+                        
+                        <h3 class="text-xl font-bold mb-2 text-slate-800 mt-6">Perbedaan Sel Hewan dan Tumbuhan</h3>
+                        <p class="mb-2">Meskipun sama-sama sel eukariotik, terdapat perbedaan utama:</p>
+                        <div class="overflow-x-auto mt-4">
+                            <table class="min-w-full bg-white border border-slate-200">
+                                <thead>
+                                    <tr class="bg-slate-100">
+                                        <th class="py-2 px-4 border">Bagian Sel</th>
+                                        <th class="py-2 px-4 border">Sel Tumbuhan</th>
+                                        <th class="py-2 px-4 border">Sel Hewan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="py-2 px-4 border font-medium">Dinding Sel</td>
+                                        <td class="py-2 px-4 border text-green-600">Ada</td>
+                                        <td class="py-2 px-4 border text-red-500">Tidak Ada</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-4 border font-medium">Kloroplas</td>
+                                        <td class="py-2 px-4 border text-green-600">Ada (untuk fotosintesis)</td>
+                                        <td class="py-2 px-4 border text-red-500">Tidak Ada</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="py-2 px-4 border font-medium">Vakuola</td>
+                                        <td class="py-2 px-4 border">Besar</td>
+                                        <td class="py-2 px-4 border">Kecil / Tidak ada</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function openMateri(materiId) {
+            const materi = dataMateri[materiId];
+            if (materi) {
+                document.getElementById('materi-title').innerText = materi.title;
+                document.getElementById('materi-content').innerHTML = materi.content;
+                navigateTo('baca-materi');
+            }
+        }
+
+        /* =========================================
+           3. LOGIKA KUIS INTERAKTIF
+           ========================================= */
+        const quizData = [
+            {
+                question: "Pusat dari sistem tata surya kita adalah...",
+                options: ["Bumi", "Matahari", "Bulan", "Jupiter"],
+                correctAnswer: 1
+            },
+            {
+                question: "Organel sel yang berfungsi sebagai tempat fotosintesis pada tumbuhan adalah...",
+                options: ["Mitokondria", "Nukleus", "Kloroplas", "Ribosom"],
+                correctAnswer: 2
+            },
+            {
+                question: "Gaya tarik-menarik antara dua benda yang memiliki massa disebut gaya...",
+                options: ["Gesek", "Magnet", "Otot", "Gravitasi"],
+                correctAnswer: 3
+            },
+            {
+                question: "Planet manakah yang terkenal dengan sistem cincinnya yang indah?",
+                options: ["Mars", "Saturnus", "Venus", "Uranus"],
+                correctAnswer: 1
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+
+        function startQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            document.getElementById('quiz-container').classList.remove('hidden');
+            document.getElementById('result-container').classList.add('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const questionData = quizData[currentQuestionIndex];
+            
+            // Update UI teks pertanyaan
+            document.getElementById('question-text').innerText = questionData.question;
+            document.getElementById('quiz-progress').innerText = `Pertanyaan ${currentQuestionIndex + 1} dari ${quizData.length}`;
+            
+            // Sembunyikan tombol next
+            document.getElementById('next-btn').classList.add('hidden');
+
+            // Render opsi jawaban
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = ''; // Bersihkan opsi sebelumnya
+            
+            questionData.options.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.className = 'w-full text-left p-4 border border-slate-200 rounded-xl hover:bg-teal-50 hover:border-teal-300 transition duration-200 flex items-center font-medium text-slate-700';
+                
+                // Tambahkan label huruf (A, B, C, D)
+                const label = String.fromCharCode(65 + index); // 65 = 'A'
+                button.innerHTML = `<span class="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center mr-3 text-slate-500 font-bold">${label}</span> ${option}`;
+                
+                button.onclick = () => selectAnswer(index, button);
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function selectAnswer(selectedIndex, buttonElement) {
+            // Nonaktifkan semua tombol setelah dipilih
+            const buttons = document.getElementById('options-container').querySelectorAll('button');
+            buttons.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.add('opacity-70', 'cursor-not-allowed');
+                btn.classList.remove('hover:bg-teal-50', 'hover:border-teal-300');
+            });
+
+            const correctIndex = quizData[currentQuestionIndex].correctAnswer;
+
+            // Cek kebenaran dan beri styling
+            if (selectedIndex === correctIndex) {
+                // Jawaban Benar
+                buttonElement.classList.replace('border-slate-200', 'border-green-500');
+                buttonElement.classList.add('bg-green-50');
+                buttonElement.innerHTML += `<i class="fa-solid fa-check text-green-500 ml-auto text-xl"></i>`;
+                score += (100 / quizData.length);
+            } else {
+                // Jawaban Salah
+                buttonElement.classList.replace('border-slate-200', 'border-red-500');
+                buttonElement.classList.add('bg-red-50');
+                buttonElement.innerHTML += `<i class="fa-solid fa-xmark text-red-500 ml-auto text-xl"></i>`;
+                
+                // Tunjukkan yang benar
+                const correctButton = buttons[correctIndex];
+                correctButton.classList.replace('border-slate-200', 'border-green-500');
+                correctButton.classList.add('bg-green-50', 'opacity-100');
+            }
+
+            // Tampilkan tombol next
+            document.getElementById('next-btn').classList.remove('hidden');
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('quiz-container').classList.add('hidden');
+            document.getElementById('result-container').classList.remove('hidden');
+            
+            const finalScoreElement = document.getElementById('final-score');
+            const roundedScore = Math.round(score);
+            finalScoreElement.innerText = roundedScore;
+            
+            // Ganti warna berdasarkan skor
+            if(roundedScore >= 80) {
+                finalScoreElement.className = "text-6xl font-bold text-green-500 mb-8";
+            } else if (roundedScore >= 50) {
+                finalScoreElement.className = "text-6xl font-bold text-orange-500 mb-8";
+            } else {
+                finalScoreElement.className = "text-6xl font-bold text-red-500 mb-8";
+            }
+        }
+
+        // Initialize: Tampilkan home saat pertama kali dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            navigateTo('home');
+        });
+    </script>
+</body>
+</html>
